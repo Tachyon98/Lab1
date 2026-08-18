@@ -1,83 +1,99 @@
-# Student Information
-- **Full Name:** Vuong Trung Khang Tang
-- **Student ID:** S00430964
-- **Class ID:** ITEC621
+# FX Mini Studio
 
-# FX Mini Studio (JavaFX Implementation Lab)
+FX Mini Studio is a modular JavaFX application developed for Lab 1. It demonstrates JavaFX application startup, layout containers, controls, property binding, animation, image loading, and a reusable custom clock component.
 
-This repository contains a completed, polished JavaFX application called **FX Mini Studio** which implements all requirements from the **Lab 1 Assignment**.
+## Technology and Versions
 
-## Technical Stack & Compatibility
-* **Java Development Kit (JDK):** Version 17 or higher (tested on JDK 17 and JDK 21).
-* **JavaFX SDK:** Version 21.0.1 or higher.
-* **Build System:** Apache Maven (or Gradle/IDE-native).
+| Technology | Version | Purpose |
+| --- | --- | --- |
+| JDK | 17 or later | Compiles and runs the application |
+| Java | 17 language level | Configured by Maven through the compiler release setting |
+| JavaFX Controls | 21.0.1 | UI controls, layouts, graphics, animation, and properties |
+| Apache Maven | 3.8+ recommended | Dependency management, compilation, and execution |
+| JavaFX Maven Plugin | 0.0.8 | Runs the JavaFX application through Maven |
 
----
+JavaFX is supplied as a Maven dependency, so a separate JavaFX SDK installation is not required. The project uses the JavaFX `controls` module and is configured as the named module `com.acu`.
 
-## Key Features & Lab Alignment
+## Build and Run
 
-### 1. App Navigation & Window Lifecycle (Part A)
-* Extends `javafx.application.Application` and launches via a dedicated bootstrap main class (`Main.java`) to bypass standard modular/classpath issues on modern IDEs.
-* Implements a desktop window of standard size **900x650** with a strict minimum window constraint of **800x600** to maintain a clean responsive UI layout.
-* Includes a top global `MenuBar` with a `Help -> About` menu option opening a modal `Alert` showing student metadata.
+### Maven in a Terminal
 
-### 2. Layout Playground (Part B)
-* **BorderPane Configuration:**
-  * **Top (HBox):** Contains an input `TextField`, a labeling text `Text:`, and an "Add to ListView" `Button` which appends the field values into the list.
-  * **Center (ListView):** Scrollable `ListView<String>` with constrained preferred heights to preserve UI balance during resizing.
-  * **Right (VBox):** Custom combo box for selection (`Theme A`, `Theme B`, `Theme C`) and a checkbox labeled `Enable Feature`.
-* **GridPane Form (2x2):** Features structured labels and input fields ("Full Name" and "Email") aligned with a "Submit" button that outputs data to the system console.
-* **FlowPane Wrap Area:** Automatically repositions and wraps a list of 8 buttons when the window undergoes physical horizontal resizing.
+From the project root, the directory containing `pom.xml`, run:
 
-### 3. Graphics & Properties Binding (Part C)
-* **Centered Group & Circle:** Features a graphical `Circle` and a radial `Line` visual indicator housed within a custom `Group` inside a `Pane` container.
-* **Property Centering:** Uses bidirectional and mathematical bindings to dynamically link the `Group`'s layout coordinates to the center of the resizable canvas width and height properties.
-* **Unidirectional Binding:** Binds the `radiusProperty` of the circle and the line's endpoint `endXProperty` directly to a "Radius" `Slider` value property (ranges 10 to 100).
-* **Rotation Binding:** Binds the `rotateProperty` of the circle's container `Group` to a "Rotation" `Slider` (0 to 360 degrees), resolving the static appearance of simple solid circles.
-* **Timeline Animation:** An interactive "Pulse (Scale Animation)" button executes a multi-cycle `ScaleTransition` that smoothly expands and contracts the graphical circle.
-* **Bidirectional Binding:** Connects a "Caption" input text field to a bold header label, where updating either input instantly pushes modifications to the other.
-* **Style Manipulation:** Employs a JavaFX `ColorPicker` to update the graphical node fill color through explicit inline `-fx-fill` CSS modification.
+```bash
+mvn clean compile
+mvn javafx:run
+```
 
-### 4. Image Loading & Custom Fonts (Part D)
-* Demonstrates modular asset loading using Java resource streams (`getClass().getResourceAsStream()`).
-* **Resizing & Preservation:** Binds the image's `fitWidthProperty` to a layout slider while calling `.setPreserveRatio(true)` to avoid structural squishing.
-* **Fault-Tolerant Loading:** Wraps image stream construction inside robust try-catch blocks and automatically triggers a warning `Alert` dialog suggesting the correct filepath (`src/main/resources/images/`) if the resource is missing.
-* **Custom Typography:** Sets headers to a specialized styled "Georgia" serif font in bold to contrast standard system sans-serif labels.
+The first command removes previous build output and compiles the project. The second command starts the application using the configured entry point, `com.acu.App`.
 
-### 5. Reusable ClockPane Widget (Part E)
-* Encapsulates an analog clock within a modular subclass (`ClockPane.java` extending `BorderPane`) that can be instantiated and placed in any standard JavaFX layout.
-* **Proper JavaFX Properties:** Exposes bindable properties (`hourProperty()`, `minuteProperty()`, `secondProperty()`, `runningProperty()`, and `darkModeProperty()`) alongside corresponding getters and setters.
-* **Mathematical Face Mapping:** Translates clock hand coordinate angles using polar trigonometry driven by property bindings.
-* **Detailed Face Decoration:** Implements a dynamic drawing loop that generates **60 distinctive tick marks** (longer, thicker marks for hours; thinner, smaller marks for minutes) utilizing JavaFX lines.
-* **Responsive Layout:** Listens to pane size changes to recalculate the clock circle and ticks dynamically on window resize.
-* **Controls & Theming:** Exposes "Start" and "Stop" controls which update the clock's `running` state (binding directly to a 1Hz clock timeline) and includes a "Dark Mode" theme toggle swapping the face CSS classes and fill properties from light to dark.
+To build the project without starting the user interface:
 
----
+```bash
+mvn clean package
+```
 
-## Build and Run Steps
+### VS Code
 
-### Option 1: Command Line (Maven) - Recommended
-To build and run the application on Mac (VSCode/Terminal) using Maven:
-1. Ensure **Apache Maven** and **JDK 17+** are installed and mapped to your system `PATH`.
-2. Open a terminal and navigate to the root folder (where `pom.xml` resides).
-3. **Compile the project:**
-   ```bash
-   mvn clean compile
-   ```
-4. **Run the JavaFX application:**
-   ```bash
-   mvn javafx:run
-   ```
+1. Install a JDK 17 or later and ensure VS Code can locate it.
+2. Install the **Extension Pack for Java** by Microsoft.
+3. Open the project folder in VS Code.
+4. Allow VS Code to import the Maven project and resolve dependencies.
+5. Use the integrated terminal to run `mvn javafx:run`.
 
-### Option 2: VS Code (with Java Extensions)
-1. Install the **Extension Pack for Java** and **JavaFX Support** extensions from Microsoft.
-2. Ensure you are using JDK 17+ in your VS Code settings.
-3. Open the root folder of this project in VS Code.
-4. VS Code will automatically resolve the Maven dependencies.
-5. Open the `Main.java` file and click the **Run** button above the main method (or press `F5` / `Ctrl+F5`).
+The Maven command is the recommended VS Code run method because it applies the JavaFX configuration from `pom.xml`. The Java file `App.java` can also be opened for source inspection.
 
----
+## Application Summary
 
-## Resources & Image Attributions
-1. **Kung Fu Panda Image (`icon.png`):** The image viewer displays a placeholder image from DreamWorks' "Kung Fu Panda", loaded locally via classpath from `src/main/resources/images/icon.png`.
-2. **JavaFX Documentation:** JavaFX API JavaDocs (Oracle/OpenJFX) were referenced for layouts and bindable property structures.
+The application opens a window titled **FX Mini Studio** with a minimum size of 800 x 600 pixels. A Help > About menu displays application and student information. The main content is a non-closable tab pane containing the following demonstrations.
+
+### Layout Playground
+
+`LayoutPlayground` is a scrollable view demonstrating common JavaFX layout containers:
+
+- A `BorderPane` with an input area, a `ListView`, and an options panel.
+- A `GridPane` form for full name and email values, submitted to the console.
+- A `FlowPane` containing eight buttons that wrap when the available width changes.
+
+### Graphics and Binding
+
+`GraphicsBinding` demonstrates JavaFX shapes and properties:
+
+- A centered circle and radial line controlled by radius and rotation sliders.
+- Unidirectional bindings for shape dimensions and rotation.
+- A scale pulse animation.
+- Bidirectional binding between a text field and a label.
+- A `ColorPicker` for changing the circle colour.
+- An image viewer whose width is controlled by a slider and whose aspect ratio is preserved.
+- Custom Georgia typography and classpath-based image loading.
+
+### Clock Widget
+
+`ClockPane` is a reusable `BorderPane` subclass that draws an analogue clock. It provides bindable hour, minute, second, running, and dark-mode properties. The clock updates once per second, redraws when resized, displays 60 minute/hour tick marks, and provides Start, Stop, and Dark Mode controls.
+
+## Project Structure
+
+```text
+Lab1/
+├── pom.xml                         Maven configuration and dependencies
+├── README.md                       Project and report documentation
+└── src/
+    └── main/
+        ├── java/
+        │   ├── module-info.java     Java module declaration
+        │   └── com/acu/
+        │       ├── App.java         Application entry point and main window
+        │       ├── ClockPane.java   Reusable analogue clock component
+        │       ├── GraphicsBinding.java  Graphics, bindings, animation, and image view
+        │       ├── LayoutPlayground.java Layout and form demonstrations
+        │       └── SystemInfo.java  Java and JavaFX version helper methods
+        └── resources/
+            └── images/
+                └── icon.png         Image loaded from the classpath
+```
+
+The `target/` directory is generated by Maven and contains compiled classes and build metadata. It is not part of the application source structure.
+
+## Resource Loading
+
+The image viewer expects `icon.png` at `src/main/resources/images/icon.png`. Maven copies this resource to the runtime classpath, where it is loaded using `/images/icon.png`.
