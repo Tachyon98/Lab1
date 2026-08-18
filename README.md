@@ -76,50 +76,6 @@ To build and run the application on Mac (VSCode/Terminal) using Maven:
 4. VS Code will automatically resolve the Maven dependencies.
 5. Open the `Main.java` file and click the **Run** button above the main method (or press `F5` / `Ctrl+F5`).
 
-### Option 3: IntelliJ IDEA
-1. Open IntelliJ IDEA and select **Open** or **Import**.
-2. Select the project directory (containing `pom.xml`).
-3. IntelliJ will automatically detect Maven and import dependencies.
-4. Once indexing is complete, open `com.acu.Main` in `src/main/java`.
-5. Right-click the file and select **Run 'Main.main()'**.
-
-### Option 4: Eclipse IDE
-1. Open Eclipse and choose a workspace.
-2. Select **File -> Import... -> Maven -> Existing Maven Projects**.
-3. Select the project directory and click **Finish**.
-4. Right-click the project in Project Explorer and choose **Run As -> Java Application**.
-5. Select `com.acu.Main` as the entry point.
-
-### Option 5: Gradle Setup (Fallback Integration)
-If your curriculum requires Gradle instead of Maven, you can translate the project by creating a `build.gradle` file in the root directory:
-```groovy
-plugins {
-    id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    // Dependencies are handled natively by the OpenJFX plugin
-}
-
-javafx {
-    version = "21.0.1"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
-
-application {
-    mainClass = 'com.acu.Main'
-}
-```
-Run with:
-```bash
-./gradlew run
-```
-
 ---
 
 ## Resources & Image Attributions
