@@ -46,7 +46,7 @@ public class App extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About FX Mini Studio");
         alert.setHeaderText("FX Mini Studio v1.0");
-        alert.setContentText("Lab 1 Exercise: JavaFX Basics\nStudent: [Student Name: Vuong Trung Khang Tang - Student ID: S00430964]");
+        alert.setContentText("Lab 1 Exercise: JavaFX Basics\nStudent: [Student Name: Dinar Sour - Student ID: S00000000]");
         alert.showAndWait();
     }
 
